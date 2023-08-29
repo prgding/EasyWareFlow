@@ -11,10 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CurrentUser {
-
     private int userId;//用户id
-
     private String userCode;//用户名
-
     private String userName;//真实姓名
 }

@@ -4,7 +4,7 @@
 
 <mapper namespace="me.ding.easywareflow.mapper.UserMapper">
     <!--public User findUserByCode(String userCode)-->
-    <select id="findUserByCode" resultType="me.ding.easywareflow.entity.User">
+    <select id="findUserByCode" resultType="User">
         SELECT *
         FROM user_info
         WHERE user_code = #{userCode}

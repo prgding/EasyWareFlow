@@ -25,4 +25,4 @@
 
 ## 技术选型
 
-项目为前后端分离项目，采用的技术包括SpringBoot + MyBatis + MySql + Redis + Vue + Axios + Element-Plus + Echarts等。
+项目为前后端分离项目，采用的技术包括 SpringBoot + MyBatis + MySql + Redis 等等。

@@ -1,9 +1,8 @@
 package me.ding.easywareflow.controller;
 
-import me.ding.easywareflow.entity.Auth;
-import me.ding.easywareflow.entity.CurrentUser;
-import me.ding.easywareflow.entity.Result;
+import me.ding.easywareflow.entity.*;
 import me.ding.easywareflow.service.AuthService;
+import me.ding.easywareflow.service.UserService;
 import me.ding.easywareflow.utils.TokenUtils;
 import me.ding.easywareflow.utils.WarehouseConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +17,12 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    //注入AuthService
     @Autowired
     private AuthService authService;
-
-    //注入TokenUtils
     @Autowired
     private TokenUtils tokenUtils;
+    @Autowired
+    private UserService userService;
 
     /**
      * 加载当前登录用户权限(菜单)树的url接口/user/auth-list
@@ -39,4 +37,19 @@ public class UserController {
         //响应
         return Result.ok(authTreeList);
     }
+
+    /**
+     * 分页查询用户的url接口/user/user-list
+     * 参数Page对象用于接收请求参数页码pageNum、每页行数pageSize;
+     * 参数User对象用于接收请求参数用户名userCode、用户类型userType、用户状态userState;
+     * 返回值Result对象向客户端响应组装了所有分页信息的Page对象;
+     */
+    @RequestMapping("/user-list")
+    public Result userListPage(Page page, User user) {
+        //执行业务
+        page = userService.queryUserPage(page, user);
+        //响应
+        return Result.ok(page);
+    }
+
 }

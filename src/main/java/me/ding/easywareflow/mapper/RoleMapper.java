@@ -26,4 +26,8 @@ public interface RoleMapper {
     int selectRoleCount(Role role);
 
     List<Role> selectRolePage(@Param("page") Page page, @Param("role") Role role);
+
+    Role findRoleByNameOrCode(String roleName, String roleCode);
+
+    void insertRole(Role role);
 }

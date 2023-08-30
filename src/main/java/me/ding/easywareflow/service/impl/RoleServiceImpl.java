@@ -2,6 +2,7 @@ package me.ding.easywareflow.service.impl;
 
 import me.ding.easywareflow.dto.AssignRoleDto;
 import me.ding.easywareflow.entity.Page;
+import me.ding.easywareflow.entity.Result;
 import me.ding.easywareflow.entity.Role;
 import me.ding.easywareflow.mapper.RoleMapper;
 import me.ding.easywareflow.service.RoleService;
@@ -57,5 +58,21 @@ public class RoleServiceImpl implements RoleService {
         page.setResultList(roleList);
         return page;
     }
+
+    //添加角色的业务方法
+    @Override
+    public Result saveRole(Role role) {
+
+        //根据角色名或角色代码查询角色
+        Role oldRole = roleMapper.findRoleByNameOrCode(role.getRoleName(), role.getRoleCode());
+        if (oldRole != null) {
+            //角色已存在
+            return Result.err(Result.CODE_ERR_BUSINESS, "该角色已存在！");
+        }
+        //角色不存在,添加角色
+        roleMapper.insertRole(role);
+        return Result.ok("添加角色成功！");
+    }
+
 
 }

@@ -2,6 +2,7 @@ package me.ding.easywareflow.service;
 
 import me.ding.easywareflow.dto.AssignRoleDto;
 import me.ding.easywareflow.entity.Page;
+import me.ding.easywareflow.entity.Result;
 import me.ding.easywareflow.entity.Role;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface RoleService {
     void assignRole(AssignRoleDto assignRoleDto);
 
     Page queryRolePage(Page page, Role role);
+
+    Result saveRole(Role role);
 }

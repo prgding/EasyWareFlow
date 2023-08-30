@@ -73,4 +73,19 @@
         </where>
     </select>
 
+    <!-- Role findRoleByNameOrCode(String roleName, String roleCode);-->
+    <select id="findRoleByNameOrCode" resultType="Role">
+        select *
+        from role
+        where role_name = #{param1}
+           or role_code = #{param2}
+    </select>
+
+    <!-- int insertRole(Role role);-->
+    <insert id="insertRole">
+        insert into role
+            (role_name, role_code, role_desc, role_state, create_by, create_time)
+        values (#{roleName}, #{roleCode}, #{roleDesc}, 0, #{createBy}, now())
+    </insert>
+
 </mapper>

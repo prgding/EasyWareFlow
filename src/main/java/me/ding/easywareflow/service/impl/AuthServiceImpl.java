@@ -1,12 +1,14 @@
 package me.ding.easywareflow.service.impl;
 
 import com.alibaba.fastjson2.JSON;
+import me.ding.easywareflow.dto.AssignAuthDto;
 import me.ding.easywareflow.entity.Auth;
 import me.ding.easywareflow.mapper.AuthMapper;
 import me.ding.easywareflow.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -81,5 +83,25 @@ public class AuthServiceImpl implements AuthService {
         //返回整个权限(菜单)树List<Auth>
         return allAuthTreeList;
     }
+
+    //给角色分配权限(菜单)的业务方法
+    @Transactional//事务处理
+    @Override
+    public void assignAuth(AssignAuthDto assignAuthDto) {
+
+        //拿到角色id
+        Integer roleId = assignAuthDto.getRoleId();
+        //拿到给角色分配的所有权限(菜单)id
+        List<Integer> authIds = assignAuthDto.getAuthIds();
+
+        //根据角色id删除给角色已分配的所有权限(菜单)
+        authMapper.delAuthByRoleId(roleId);
+
+        //循环添加角色权限(菜单)关系
+        for (Integer authId : authIds) {
+            authMapper.insertRoleAuth(roleId, authId);
+        }
+    }
+
 
 }

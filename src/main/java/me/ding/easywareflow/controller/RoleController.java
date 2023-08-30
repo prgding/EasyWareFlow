@@ -1,9 +1,11 @@
 package me.ding.easywareflow.controller;
 
+import me.ding.easywareflow.dto.AssignAuthDto;
 import me.ding.easywareflow.entity.CurrentUser;
 import me.ding.easywareflow.entity.Page;
 import me.ding.easywareflow.entity.Result;
 import me.ding.easywareflow.entity.Role;
+import me.ding.easywareflow.service.AuthService;
 import me.ding.easywareflow.service.RoleService;
 import me.ding.easywareflow.utils.TokenUtils;
 import me.ding.easywareflow.utils.WarehouseConstants;
@@ -22,6 +24,8 @@ public class RoleController {
     private RoleService roleService;
     @Autowired
     private TokenUtils tokenUtils;
+    @Autowired
+    private AuthService authService;
 
     /**
      * 查询所有角色的url接口role/role-list
@@ -92,6 +96,19 @@ public class RoleController {
         List<Integer> authIdList = roleService.queryAuthIds(roleId);
         //响应
         return Result.ok(authIdList);
+    }
+    /**
+     * 给角色分配权限(菜单)的url接口/role/auth-grant
+     *
+     * @RequestBody AssignAuthDto assignAuthDto将请求传递的json数据
+     * 封装到参数AssignAuthDto对象中;
+     */
+    @RequestMapping("/auth-grant")
+    public Result assignAuth(@RequestBody AssignAuthDto assignAuthDto){
+        //执行业务
+        authService.assignAuth(assignAuthDto);
+        //响应
+        return Result.ok("分配权限成功！");
     }
 
 

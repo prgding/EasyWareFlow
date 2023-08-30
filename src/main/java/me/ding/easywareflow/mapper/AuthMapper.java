@@ -11,4 +11,8 @@ public interface AuthMapper {
     List<Auth> findAllAuth(int userId);
 
     List<Auth> getAllAuth();
+    //根据角色id删除给角色已分配的所有权限(菜单)
+    void delAuthByRoleId(Integer roleId);
+    //添加角色权限(菜单)关系的方法
+    void insertRoleAuth(Integer roleId, Integer authId);
 }

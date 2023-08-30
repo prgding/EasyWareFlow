@@ -1,5 +1,6 @@
 package me.ding.easywareflow.service;
 
+import me.ding.easywareflow.dto.AssignAuthDto;
 import me.ding.easywareflow.entity.Auth;
 
 import java.util.List;
@@ -9,4 +10,6 @@ public interface AuthService {
     List<Auth> findAuthTree(int userId);
 
     List<Auth> allAuthTree();
+
+    void assignAuth(AssignAuthDto assignAuthDto);
 }

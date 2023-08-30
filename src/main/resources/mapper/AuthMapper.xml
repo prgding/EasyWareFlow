@@ -25,4 +25,18 @@
         where auth_state = 1
     </select>
 
+
+    <!-- int delAuthByRoleId(Integer roleId);-->
+    <delete id="delAuthByRoleId">
+        delete
+        from role_auth
+        where role_id = #{roleId}
+    </delete>
+
+    <!-- void insertRoleAuth(Integer roleId, Integer authId); -->
+    <insert id="insertRoleAuth">
+        insert into role_auth (role_id, auth_id)
+        values (#{param1}, #{param2})
+    </insert>
+
 </mapper>

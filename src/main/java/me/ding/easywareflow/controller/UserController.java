@@ -1,5 +1,6 @@
 package me.ding.easywareflow.controller;
 
+import me.ding.easywareflow.dto.AssignRoleDto;
 import me.ding.easywareflow.entity.*;
 import me.ding.easywareflow.service.AuthService;
 import me.ding.easywareflow.service.RoleService;
@@ -84,7 +85,25 @@ public class UserController {
         //执行业务
         return userService.updateUserState(user);
     }
-
-
-
+    /**
+     * 查询用户已分配的角色的url接口/user/user-role-list/{userId}
+     */
+    @RequestMapping("/user-role-list/{userId}")
+    public Result userRoleList(@PathVariable Integer userId){
+        //执行业务
+        List<Role> roleList = roleService.queryRolesByUserId(userId);
+        //响应
+        return Result.ok(roleList);
+    }
+    /**
+     * 给用户分配角色的url接口/user/assignRole
+     * 封装到参数AssignRoleDto对象中;
+     */
+    @RequestMapping("/assignRole")
+    public Result assignRole(@RequestBody AssignRoleDto assignRoleDto){
+        //执行业务
+        roleService.assignRole(assignRoleDto);
+        //响应
+        return Result.ok("分配角色成功！");
+    }
 }

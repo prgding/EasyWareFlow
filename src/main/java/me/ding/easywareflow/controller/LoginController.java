@@ -76,6 +76,7 @@ public class LoginController {
         CurrentUser currentUser = tokenUtils.getCurrentUser(clientToken);
         return Result.ok(currentUser);
     }
+
     /**
      * 登出的url接口/logout
      * 将请求头Token的值即前端归还的token,赋值给请求处理方法的参数String clientToken

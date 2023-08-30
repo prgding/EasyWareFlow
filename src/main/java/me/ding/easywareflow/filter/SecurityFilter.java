@@ -57,6 +57,7 @@ public class SecurityFilter implements Filter {
          */
         //拿到前端归还的token
         String clientToken = request.getHeader(WarehouseConstants.HEADER_TOKEN_NAME);
+        System.out.println("clientToken = " + clientToken);
         //token校验通过,请求放行
         if (StringUtils.hasText(clientToken) && Boolean.TRUE.equals(redisTemplate.hasKey(clientToken))) {
             chain.doFilter(request, response);

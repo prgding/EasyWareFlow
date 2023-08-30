@@ -3,13 +3,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="me.ding.easywareflow.mapper.UserMapper">
-    <!--public User findUserByCode(String userCode)-->
+    <!-- User findUserByCode(String userCode)-->
     <select id="findUserByCode" resultType="User">
         SELECT *
         FROM user_info
         WHERE user_code = #{userCode}
           and is_delete = 0
     </select>
+
     <select id="selectUserCount" resultType="Integer">
         select count(*) from user_info
         <where>
@@ -24,8 +25,8 @@
             </if>
             and is_delete = 0
         </where>
-
     </select>
+
     <select id="selectUserPage" resultType="User">
         select t1.*, t2.user_code getCode from user_info t1, user_info t2
         <where>
@@ -43,5 +44,21 @@
         </where>
         limit #{page.limitIndex}, #{page.pageSize}
     </select>
+
+    <!-- int insertUser(User user); -->
+    <insert id="insertUser">
+        insert into user_info
+        (user_name, user_code, user_pwd, user_state, is_delete, create_by, create_time)
+        values (#{userName}, #{userCode}, #{userPwd}, 0, 0, #{createBy}, now())
+    </insert>
+
+    <!-- int updateUserState(User user) -->
+    <update id="updateUserState">
+        update user_info
+        set user_state = #{userState},
+            update_By=#{updateBy},
+            update_time=#{updateTime}
+        where user_id = #{userId}
+    </update>
 
 </mapper>

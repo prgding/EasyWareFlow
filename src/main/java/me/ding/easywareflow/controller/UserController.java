@@ -6,11 +6,9 @@ import me.ding.easywareflow.service.UserService;
 import me.ding.easywareflow.utils.TokenUtils;
 import me.ding.easywareflow.utils.WarehouseConstants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -52,4 +50,35 @@ public class UserController {
         return Result.ok(page);
     }
 
+    /**
+     * 添加用户的url接口/user/addUser
+     * 将请求头Token的值即客户端归还的token赋值给参数变量token;
+     */
+    @RequestMapping("/addUser")
+    public Result addUser(@RequestBody User user, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
+        //获取当前登录的用户
+        CurrentUser currentUser = tokenUtils.getCurrentUser(token);
+        //获取当前登录的用户id,即创建新用户的用户id
+        int createBy = currentUser.getUserId();
+        user.setCreateBy(createBy);
+        //执行业务
+        return userService.saveUser(user);
+    }
+
+    /**
+     * 修改用户状态的url接口/user/updateState
+     * 将请求头Token的值即客户端归还的token赋值给参数变量token;
+     */
+    @RequestMapping("/updateState")
+    public Result updateUserState(@RequestBody User user, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
+        //获取当前登录的用户
+        CurrentUser currentUser = tokenUtils.getCurrentUser(token);
+        //获取当前登录的用户id,即修改用户的用户id
+        int updateBy = currentUser.getUserId();
+        //设置修改用户的用户id和修改时间
+        user.setUpdateBy(updateBy);
+        user.setUpdateTime(new Date());
+        //执行业务
+        return userService.updateUserState(user);
+    }
 }

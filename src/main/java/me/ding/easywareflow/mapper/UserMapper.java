@@ -19,4 +19,9 @@ public interface UserMapper {
 
     //分页查询用户的方法
     List<User> selectUserPage(@Param("page") Page page, @Param("user") User user);
+
+    //添加用户的方法
+    int insertUser(User user);
+
+    int updateUserState(User user);
 }

@@ -133,4 +133,15 @@ public class UserController {
         user.setUpdateBy(updateBy);
         return userService.updateUserName(user);
     }
+
+    /**
+     * 重置密码的url接口/user/updatePwd/{userId}
+     */
+    @RequestMapping("/updatePwd/{userId}")
+    public Result resetPassWord(@PathVariable Integer userId){
+        //执行业务
+        //响应
+        return userService.resetPwd(userId);
+    }
+
 }

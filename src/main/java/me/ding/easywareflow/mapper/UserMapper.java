@@ -28,4 +28,6 @@ public interface UserMapper {
     int setUserDelete(Integer userId);
 
     int updateNameById(User user);
+
+    int updatePwdById(User user);
 }

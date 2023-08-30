@@ -21,4 +21,6 @@ public interface UserService {
     int deleteUserById(Integer userId);
 
     Result updateUserName(User user);
+
+    Result resetPwd(Integer userId);
 }

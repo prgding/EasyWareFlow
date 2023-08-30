@@ -82,5 +82,24 @@ public class UserServiceImpl implements UserService {
         return Result.err(Result.CODE_ERR_BUSINESS, "用户修改失败！");
     }
 
+    //重置密码的业务方法
+    @Override
+    public Result resetPwd(Integer userId) {
+
+        //创建User对象并保存用户id和加密后的重置密码123456
+        User user = new User();
+        user.setUserId(userId);
+        user.setUserPwd(DigestUtil.hmacSign("123456"));
+
+        //根据用户id修改密码
+        int i = userMapper.updatePwdById(user);
+
+        if (i > 0) {
+            return Result.ok("密码重置成功！");
+        }
+        //密码修改失败
+        return Result.err(Result.CODE_ERR_BUSINESS, "密码重置失败！");
+    }
+
 
 }

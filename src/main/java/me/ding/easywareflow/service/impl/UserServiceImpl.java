@@ -70,4 +70,17 @@ public class UserServiceImpl implements UserService {
         return userMapper.setUserDelete(userId);
     }
 
+    //修改用户昵称的业务方法
+    @Override
+    public Result updateUserName(User user) {
+        //根据用户id修改用户昵称
+        int i = userMapper.updateNameById(user);
+        if (i > 0) {//修改成功
+            return Result.ok("用户修改成功！");
+        }
+        //修改失败
+        return Result.err(Result.CODE_ERR_BUSINESS, "用户修改失败！");
+    }
+
+
 }

@@ -63,7 +63,18 @@
 
     <!-- int setUserDelete(Integer userId)-->
     <update id="setUserDelete">
-        update user_info set is_delete = 1 where user_id = #{userId}
+        update user_info
+        set is_delete = 1
+        where user_id = #{userId}
+    </update>
+
+    <!-- int updateNameById(User user)-->
+    <update id="updateNameById">
+        update user_info
+        set user_name   = #{userName},
+            update_by   = #{updateBy},
+            update_time = now()
+        where user_id = #{userId}
     </update>
 
 

@@ -119,4 +119,18 @@ public class UserController {
         if (i > 0) return Result.ok("用户删除成功！");
         return Result.err(Result.CODE_ERR_BUSINESS, "删除失败");
     }
+
+    /**
+     * 修改用户的url接口/user/updateUser
+     * 将请求头Token的值即客户端归还的token赋值给参数变量token;
+     */
+    @RequestMapping("/updateUser")
+    public Result updateUser(@RequestBody User user, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
+        //获取当前登录的用户
+        CurrentUser currentUser = tokenUtils.getCurrentUser(token);
+        //获取当前登录的用户id -- 修改用户的用户id
+        int updateBy = currentUser.getUserId();
+        user.setUpdateBy(updateBy);
+        return userService.updateUserName(user);
+    }
 }

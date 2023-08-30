@@ -26,4 +26,6 @@ public interface UserMapper {
     int updateUserState(User user);
 
     int setUserDelete(Integer userId);
+
+    int updateNameById(User user);
 }

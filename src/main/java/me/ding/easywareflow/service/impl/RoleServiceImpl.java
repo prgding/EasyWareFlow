@@ -4,6 +4,7 @@ import me.ding.easywareflow.dto.AssignRoleDto;
 import me.ding.easywareflow.entity.Page;
 import me.ding.easywareflow.entity.Result;
 import me.ding.easywareflow.entity.Role;
+import me.ding.easywareflow.mapper.AuthMapper;
 import me.ding.easywareflow.mapper.RoleMapper;
 import me.ding.easywareflow.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import java.util.List;
 public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleMapper roleMapper;
+    @Autowired
+    private AuthMapper authMapper;
 
     @Override
     public List<Role> getAllRole() {
@@ -92,6 +95,17 @@ public class RoleServiceImpl implements RoleService {
         return roleMapper.findAuthIds(roleId);
     }
 
+    //删除角色的业务方法
+    @Transactional//事务处理
+    @Override
+    public void deleteRole(Integer roleId) {
+        //根据角色id删除角色
+        int i = roleMapper.deleteRoleById(roleId);
+        if (i > 0) {
+            //根据角色id删除给角色已分配的所有权限(菜单)
+            authMapper.delAuthByRoleId(roleId);
+        }
+    }
 
 
 }

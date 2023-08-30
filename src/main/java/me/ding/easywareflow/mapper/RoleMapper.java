@@ -34,4 +34,6 @@ public interface RoleMapper {
     int updateRoleState(Role role);
 
     List<Integer> findAuthIds(Integer roleId);
+
+    int deleteRoleById(Integer roleId);
 }

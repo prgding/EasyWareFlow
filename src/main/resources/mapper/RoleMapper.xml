@@ -105,4 +105,12 @@
         where role_id = #{roleId}
     </select>
 
+    <!-- int deleteRoleById(Integer roleId)-->
+    <delete id="deleteRoleById">
+        delete
+        from role
+        where role_id = #{roleId}
+    </delete>
+
+
 </mapper>

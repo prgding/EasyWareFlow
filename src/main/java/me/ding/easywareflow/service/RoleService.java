@@ -23,4 +23,6 @@ public interface RoleService {
     Result updateRoleState(Role role);
 
     List<Integer> queryAuthIds(Integer roleId);
+
+    void deleteRole(Integer roleId);
 }

@@ -110,6 +110,16 @@ public class RoleController {
         //响应
         return Result.ok("分配权限成功！");
     }
+    /**
+     * 删除角色的url接口/role/role-delete/{roleId}
+     */
+    @RequestMapping("/role-delete/{roleId}")
+    public Result deleteRole(@PathVariable Integer roleId){
+        //执行业务
+        roleService.deleteRole(roleId);
+        //响应
+        return Result.ok("角色删除成功！");
+    }
 
 
 }

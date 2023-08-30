@@ -85,25 +85,38 @@ public class UserController {
         //执行业务
         return userService.updateUserState(user);
     }
+
     /**
      * 查询用户已分配的角色的url接口/user/user-role-list/{userId}
      */
     @RequestMapping("/user-role-list/{userId}")
-    public Result userRoleList(@PathVariable Integer userId){
+    public Result userRoleList(@PathVariable Integer userId) {
         //执行业务
         List<Role> roleList = roleService.queryRolesByUserId(userId);
         //响应
         return Result.ok(roleList);
     }
+
     /**
      * 给用户分配角色的url接口/user/assignRole
      * 封装到参数AssignRoleDto对象中;
      */
     @RequestMapping("/assignRole")
-    public Result assignRole(@RequestBody AssignRoleDto assignRoleDto){
+    public Result assignRole(@RequestBody AssignRoleDto assignRoleDto) {
         //执行业务
         roleService.assignRole(assignRoleDto);
         //响应
         return Result.ok("分配角色成功！");
+    }
+
+    /**
+     * 删除用户的url接口/user/deleteUser/{userId}
+     */
+    @RequestMapping("/deleteUser/{userId}")
+    public Result deleteUser(@PathVariable Integer userId) {
+        //执行业务
+        int i = userService.deleteUserById(userId);
+        if (i > 0) return Result.ok("用户删除成功！");
+        return Result.err(Result.CODE_ERR_BUSINESS, "删除失败");
     }
 }

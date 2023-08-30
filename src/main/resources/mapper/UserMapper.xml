@@ -61,4 +61,10 @@
         where user_id = #{userId}
     </update>
 
+    <!-- int setUserDelete(Integer userId)-->
+    <update id="setUserDelete">
+        update user_info set is_delete = 1 where user_id = #{userId}
+    </update>
+
+
 </mapper>

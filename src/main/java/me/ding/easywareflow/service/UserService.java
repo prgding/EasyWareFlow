@@ -17,4 +17,6 @@ public interface UserService {
     Result saveUser(User user);
 
     Result updateUserState(User user);
+
+    int deleteUserById(Integer userId);
 }

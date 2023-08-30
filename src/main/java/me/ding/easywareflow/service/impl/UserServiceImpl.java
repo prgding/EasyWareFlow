@@ -62,4 +62,12 @@ public class UserServiceImpl implements UserService {
         }
         return Result.err(Result.CODE_ERR_BUSINESS, "修改失败！");
     }
+
+    //根据用户id删除用户的业务方法
+    @Override
+    public int deleteUserById(Integer userId) {
+        //根据用户id修改用户状态为删除状态
+        return userMapper.setUserDelete(userId);
+    }
+
 }

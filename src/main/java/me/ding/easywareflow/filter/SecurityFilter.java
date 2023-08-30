@@ -60,7 +60,7 @@ public class SecurityFilter implements Filter {
         //token校验通过,请求放行
         if (StringUtils.hasText(clientToken) && Boolean.TRUE.equals(redisTemplate.hasKey(clientToken))) {
             chain.doFilter(request, response);
-            System.out.println("token校验通过, 放行");
+            System.out.println("token 校验通过, 放行");
             return;
         }
         //token校验失败,向前端响应失败的Result对象转成的json串

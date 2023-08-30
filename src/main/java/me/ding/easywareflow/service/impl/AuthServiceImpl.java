@@ -44,6 +44,7 @@ public class AuthServiceImpl implements AuthService {
         return authTreeList;
     }
 
+
     //将所有权限(菜单)转成权限(菜单)树的递归算法
     private List<Auth> allAuthToAuthTree(List<Auth> allAuthList, int parentId) {
         //获取父权限(菜单)id为参数parentId的所有权限(菜单)
@@ -61,4 +62,24 @@ public class AuthServiceImpl implements AuthService {
         }
         return authList;
     }
+
+    //查询整个权限(菜单)树的业务方法
+    @Override
+    public List<Auth> allAuthTree() {
+        //先从redis中查询缓存,查到的是整个权限(菜单)树List<Auth>转的json串
+        String allAuthTreeJson = redisTemplate.opsForValue().get("all:authTree");
+        if(StringUtils.hasText(allAuthTreeJson)){//redis中查到缓存
+            //将json串转回整个权限(菜单)树List<Auth>并返回
+            return JSON.parseArray(allAuthTreeJson, Auth.class);
+        }
+        //redis中没有查到缓存,从数据库表中查询所有权限(菜单)
+        List<Auth> allAuthList = authMapper.getAllAuth();
+        //将所有权限(菜单)List<Auth>转成整个权限(菜单)树List<Auth>
+        List<Auth> allAuthTreeList = allAuthToAuthTree(allAuthList, 0);
+        //将整个权限(菜单)树List<Auth>转成json串并保存到redis
+        redisTemplate.opsForValue().set("all:authTree", JSON.toJSONString(allAuthTreeList));
+        //返回整个权限(菜单)树List<Auth>
+        return allAuthTreeList;
+    }
+
 }

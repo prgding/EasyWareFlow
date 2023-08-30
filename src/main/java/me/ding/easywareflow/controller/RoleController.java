@@ -8,10 +8,7 @@ import me.ding.easywareflow.service.RoleService;
 import me.ding.easywareflow.utils.TokenUtils;
 import me.ding.easywareflow.utils.WarehouseConstants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -83,5 +80,19 @@ public class RoleController {
 
         return roleService.updateRoleState(role);
     }
+
+    /**
+     * 查询角色已分配的权限(菜单)的url接口/role/role-auth
+     * Integer roleId将请求参数roleId赋值给请求处理方法参数roleId;
+     * 返回值Result对象向客户端响应组装了给角色分配的所有权限(菜单)id的List<Integer>;
+     */
+    @RequestMapping("/role-auth/{roleId}")
+    public Result queryRoleAuth(@PathVariable Integer roleId){
+        //执行业务
+        List<Integer> authIdList = roleService.queryAuthIds(roleId);
+        //响应
+        return Result.ok(authIdList);
+    }
+
 
 }

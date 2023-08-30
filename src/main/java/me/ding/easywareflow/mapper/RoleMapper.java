@@ -32,4 +32,6 @@ public interface RoleMapper {
     void insertRole(Role role);
 
     int updateRoleState(Role role);
+
+    List<Integer> findAuthIds(Integer roleId);
 }

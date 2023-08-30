@@ -21,4 +21,6 @@ public interface RoleService {
     Result saveRole(Role role);
 
     Result updateRoleState(Role role);
+
+    List<Integer> queryAuthIds(Integer roleId);
 }

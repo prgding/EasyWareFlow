@@ -98,4 +98,11 @@
         where role_id = #{roleId}
     </update>
 
+    <!-- List<Integer> findAuthIds(Integer roleId)-->
+    <select id="findAuthIds" resultType="integer">
+        select auth_id
+        from role_auth
+        where role_id = #{roleId}
+    </select>
+
 </mapper>

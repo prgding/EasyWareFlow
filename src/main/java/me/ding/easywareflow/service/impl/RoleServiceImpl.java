@@ -85,5 +85,13 @@ public class RoleServiceImpl implements RoleService {
         return Result.err(Result.CODE_ERR_BUSINESS, "修改失败！");
     }
 
+    //查询角色已分配的权限(菜单)的业务方法
+    @Override
+    public List<Integer> queryAuthIds(Integer roleId) {
+        //根据角色id查询角色已分配的所有权限(菜单)的id
+        return roleMapper.findAuthIds(roleId);
+    }
+
+
 
 }

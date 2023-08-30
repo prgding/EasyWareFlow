@@ -17,4 +17,12 @@
           and t3.auth_state = 1
           and t1.user_id = #{userId}
     </select>
+
+    <!-- List<Auth> getAllAuth()-->
+    <select id="getAllAuth" resultType="Auth">
+        select *
+        from auth_info
+        where auth_state = 1
+    </select>
+
 </mapper>

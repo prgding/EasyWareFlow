@@ -88,4 +88,14 @@
         values (#{roleName}, #{roleCode}, #{roleDesc}, 0, #{createBy}, now())
     </insert>
 
+
+    <!-- int updateRoleState(Role role);-->
+    <update id="updateRoleState">
+        update role
+        set role_state  = #{roleState},
+            update_by   = #{updateBy},
+            update_time = #{updateTime}
+        where role_id = #{roleId}
+    </update>
+
 </mapper>

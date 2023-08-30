@@ -74,5 +74,16 @@ public class RoleServiceImpl implements RoleService {
         return Result.ok("添加角色成功！");
     }
 
+    //修改角色状态的业务方法
+    @Override
+    public Result updateRoleState(Role role) {
+        //根据角色id修改角色状态
+        int i = roleMapper.updateRoleState(role);
+        if (i > 0) {
+            return Result.ok("修改成功！");
+        }
+        return Result.err(Result.CODE_ERR_BUSINESS, "修改失败！");
+    }
+
 
 }

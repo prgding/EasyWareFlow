@@ -19,4 +19,6 @@ public interface RoleService {
     Page queryRolePage(Page page, Role role);
 
     Result saveRole(Role role);
+
+    Result updateRoleState(Role role);
 }

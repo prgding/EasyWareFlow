@@ -30,4 +30,6 @@ public interface RoleMapper {
     Role findRoleByNameOrCode(String roleName, String roleCode);
 
     void insertRole(Role role);
+
+    int updateRoleState(Role role);
 }

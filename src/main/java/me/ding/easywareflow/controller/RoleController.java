@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RequestMapping("/role")
@@ -29,7 +30,7 @@ public class RoleController {
      * 查询所有角色的url接口role/role-list
      */
     @RequestMapping("/role-list")
-    public Result queryAllRole(){
+    public Result queryAllRole() {
         //执行业务
         List<Role> roleList = roleService.getAllRole();
         //响应
@@ -43,7 +44,7 @@ public class RoleController {
      * 返回值Result对象向客户端响应组装了所有分页信息的Page对象;
      */
     @RequestMapping("/role-page-list")
-    public Result roleListPage(Page page, Role role){
+    public Result roleListPage(Page page, Role role) {
         //执行业务
         page = roleService.queryRolePage(page, role);
         //响应
@@ -55,7 +56,7 @@ public class RoleController {
      * 将请求头Token的值即客户端归还的token赋值给参数变量token;
      */
     @RequestMapping("/role-add")
-    public Result addRole(@RequestBody Role role, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
+    public Result addRole(@RequestBody Role role, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         //获取当前登录的用户
         CurrentUser currentUser = tokenUtils.getCurrentUser(token);
         //获取当前登录的用户id,即创建新角色的用户id
@@ -63,6 +64,24 @@ public class RoleController {
         role.setCreateBy(createBy);
         //执行业务
         return roleService.saveRole(role);
+    }
+
+    /**
+     * 修改角色状态的url接口/role/role-state-update
+     * 将请求头Token的值即客户端归还的token赋值给参数变量token;
+     */
+    @RequestMapping("/role-state-update")
+    public Result updateRoleState(@RequestBody Role role, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
+        //获取当前登录的用户
+        CurrentUser currentUser = tokenUtils.getCurrentUser(token);
+        //获取当前登录的用户id,即修改角色的用户id
+        int updateBy = currentUser.getUserId();
+
+        //设置修改角色的用户id和修改时间
+        role.setUpdateBy(updateBy);
+        role.setUpdateTime(new Date());
+
+        return roleService.updateRoleState(role);
     }
 
 }

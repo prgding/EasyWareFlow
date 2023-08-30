@@ -121,5 +121,19 @@ public class RoleController {
         return Result.ok("角色删除成功！");
     }
 
+    /**
+     * 修改角色的url接口/role/role-update
+     * 将请求头Token的值即客户端归还的token赋值给参数变量token;
+     */
+    @RequestMapping("/role-update")
+    public Result updateRole(@RequestBody Role role, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
+        //获取当前登录的用户
+        CurrentUser currentUser = tokenUtils.getCurrentUser(token);
+        //获取当前登录的用户id -- 修改角色的用户id
+        int updateBy = currentUser.getUserId();
+        role.setUpdateBy(updateBy);
+        //响应
+        return roleService.updateRoleDesc(role);
+    }
 
 }

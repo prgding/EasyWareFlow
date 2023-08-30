@@ -107,5 +107,16 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
+    //修改角色描述的业务方法
+    @Override
+    public Result updateRoleDesc(Role role) {
+        //根据角色id修改角色描述
+        int i = roleMapper.updateDescById(role);
+        if (i > 0) {
+            return Result.ok("角色修改成功！");
+        }
+        return Result.err(Result.CODE_ERR_BUSINESS, "角色修改失败！");
+    }
+
 
 }

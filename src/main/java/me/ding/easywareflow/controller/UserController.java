@@ -2,6 +2,7 @@ package me.ding.easywareflow.controller;
 
 import me.ding.easywareflow.entity.*;
 import me.ding.easywareflow.service.AuthService;
+import me.ding.easywareflow.service.RoleService;
 import me.ding.easywareflow.service.UserService;
 import me.ding.easywareflow.utils.TokenUtils;
 import me.ding.easywareflow.utils.WarehouseConstants;
@@ -21,6 +22,8 @@ public class UserController {
     private TokenUtils tokenUtils;
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
 
     /**
      * 加载当前登录用户权限(菜单)树的url接口/user/auth-list
@@ -81,4 +84,7 @@ public class UserController {
         //执行业务
         return userService.updateUserState(user);
     }
+
+
+
 }

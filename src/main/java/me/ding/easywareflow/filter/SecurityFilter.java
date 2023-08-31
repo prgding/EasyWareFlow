@@ -46,6 +46,9 @@ public class SecurityFilter implements Filter {
         urlList.add("/captcha/captchaImage");
         urlList.add("/login");
         urlList.add("/logout");
+        //对上传图片的url接口/product/img-upload的请求直接放行
+        urlList.add("/product/img-upload");
+        //对static下的/img/upload中的静态资源图片的访问直接放行
         if (urlList.contains(path) || path.contains("/img/upload")) {
             chain.doFilter(request, response);
             System.out.println("白名单请求, 放行");

@@ -98,4 +98,11 @@
                 null, #{createBy}, null, #{imgs}, #{productDate}, #{suppDate})
     </insert>
 
+    <!-- int updateStateById(Product product)-->
+    <update id="updateStateById">
+        update product
+        set up_down_state = #{upDownState}
+        where product_id = #{productId}
+    </update>
+
 </mapper>

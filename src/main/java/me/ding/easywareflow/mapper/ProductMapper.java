@@ -16,4 +16,6 @@ public interface ProductMapper {
     List<Product> selectProductPage(@Param("page") Page page, @Param("product") Product product);
 
     int insertProduct(Product product);
+
+    int updateStateById(Product product);
 }

@@ -8,4 +8,6 @@ public interface ProductService {
     Page queryProductPage(Page page, Product product);
 
     Result saveProduct(Product product);
+
+    Result updateProductState(Product product);
 }

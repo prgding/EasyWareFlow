@@ -172,4 +172,13 @@ public class ProductController {
         return productService.saveProduct(product);
     }
 
+    /**
+     * 修改商品上下架状态的url接口/product/state-change
+     */
+    @RequestMapping("/state-change")
+    public Result changeProductState(@RequestBody Product product){
+        return productService.updateProductState(product);
+    }
+
+
 }

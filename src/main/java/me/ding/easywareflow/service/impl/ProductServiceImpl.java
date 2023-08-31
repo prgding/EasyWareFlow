@@ -61,5 +61,16 @@ public class ProductServiceImpl implements ProductService {
         return Result.err(Result.CODE_ERR_BUSINESS, "修改失败！");
     }
 
+    //删除商品的业务方法
+    @Override
+    public Result deleteProduct(Integer productId) {
+        //根据商品id删除商品
+        int i = productMapper.deleteProductById(productId);
+        if (i > 0) {
+            return Result.ok("商品删除成功！");
+        }
+        return Result.err(Result.CODE_ERR_BUSINESS, "商品删除失败！");
+    }
+
 
 }

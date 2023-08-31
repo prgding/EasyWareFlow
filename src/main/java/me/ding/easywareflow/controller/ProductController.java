@@ -179,6 +179,14 @@ public class ProductController {
     public Result changeProductState(@RequestBody Product product){
         return productService.updateProductState(product);
     }
+    /**
+     * 删除商品的url接口/product/product-delete/{productId}
+     */
+    @RequestMapping("/product-delete/{productId}")
+    public Result deleteProduct(@PathVariable Integer productId){
+        //响应
+        return productService.deleteProduct(productId);
+    }
 
 
 }

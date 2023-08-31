@@ -105,4 +105,11 @@
         where product_id = #{productId}
     </update>
 
+    <!-- int deleteProductById(Integer productId)-->
+    <delete id="deleteProductById">
+        delete
+        from product
+        where product_id = #{productId}
+    </delete>
+
 </mapper>

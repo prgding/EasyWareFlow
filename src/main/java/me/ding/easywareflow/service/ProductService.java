@@ -10,4 +10,6 @@ public interface ProductService {
     Result saveProduct(Product product);
 
     Result updateProductState(Product product);
+
+    Result deleteProduct(Integer productId);
 }

@@ -17,7 +17,7 @@ public class Supply implements Serializable {
     private String supplyNum;//供应商代码
     private String supplyName;//供应商名称
     private String supplyIntroduce;//供应商介绍
-    private String concat;//供应商联系人
+    private String contact;//供应商联系人
     private String phone;//供应商联系电话
     private String address;//供应商地址
     private String isDelete;//是否删除状态,0未删除,1删除

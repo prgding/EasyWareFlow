@@ -2,13 +2,12 @@ package me.ding.easywareflow.controller;
 
 import me.ding.easywareflow.entity.*;
 import me.ding.easywareflow.service.*;
+import me.ding.easywareflow.utils.TokenUtils;
+import me.ding.easywareflow.utils.WarehouseConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -40,6 +39,8 @@ public class ProductController {
      */
     @Value("${file.upload-path}")
     private String uploadPath;
+    @Autowired
+    private TokenUtils tokenUtils;
 
     /**
      * 查询所有仓库的url接口/product/store-list
@@ -149,10 +150,26 @@ public class ProductController {
             //成功响应
             return Result.ok("图片上传成功！");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             //失败响应
             return Result.err(Result.CODE_ERR_BUSINESS, "图片上传失败！");
         }
+    }
+
+    /**
+     * 添加商品的url接口/product/product-add
+     * 将请求头Token的值即客户端归还的token赋值给参数变量token;
+     */
+    @RequestMapping("/product-add")
+    public Result addProduct(@RequestBody Product product, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
+        //获取当前登录的用户
+        CurrentUser currentUser = tokenUtils.getCurrentUser(token);
+        //获取当前登录的用户id,即添加商品的用户id
+        int createBy = currentUser.getUserId();
+        product.setCreateBy(createBy);
+
+        //响应
+        return productService.saveProduct(product);
     }
 
 }

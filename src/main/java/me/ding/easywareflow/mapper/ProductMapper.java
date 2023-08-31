@@ -11,6 +11,9 @@ import java.util.List;
 public interface ProductMapper {
     //查询商品总行数的方法
     int selectProductCount(Product product);
+
     //分页查询商品的方法
     List<Product> selectProductPage(@Param("page") Page page, @Param("product") Product product);
+
+    int insertProduct(Product product);
 }

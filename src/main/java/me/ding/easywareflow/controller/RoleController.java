@@ -91,30 +91,31 @@ public class RoleController {
      * 返回值Result对象向客户端响应组装了给角色分配的所有权限(菜单)id的List<Integer>;
      */
     @RequestMapping("/role-auth/{roleId}")
-    public Result queryRoleAuth(@PathVariable Integer roleId){
+    public Result queryRoleAuth(@PathVariable Integer roleId) {
         //执行业务
         List<Integer> authIdList = roleService.queryAuthIds(roleId);
         //响应
         return Result.ok(authIdList);
     }
+
     /**
      * 给角色分配权限(菜单)的url接口/role/auth-grant
-     *
-     * @RequestBody AssignAuthDto assignAuthDto将请求传递的json数据
+     * AssignAuthDto assignAuthDto 将请求传递的json数据
      * 封装到参数AssignAuthDto对象中;
      */
     @RequestMapping("/auth-grant")
-    public Result assignAuth(@RequestBody AssignAuthDto assignAuthDto){
+    public Result assignAuth(@RequestBody AssignAuthDto assignAuthDto) {
         //执行业务
         authService.assignAuth(assignAuthDto);
         //响应
         return Result.ok("分配权限成功！");
     }
+
     /**
      * 删除角色的url接口/role/role-delete/{roleId}
      */
     @RequestMapping("/role-delete/{roleId}")
-    public Result deleteRole(@PathVariable Integer roleId){
+    public Result deleteRole(@PathVariable Integer roleId) {
         //执行业务
         roleService.deleteRole(roleId);
         //响应
@@ -126,7 +127,7 @@ public class RoleController {
      * 将请求头Token的值即客户端归还的token赋值给参数变量token;
      */
     @RequestMapping("/role-update")
-    public Result updateRole(@RequestBody Role role, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token){
+    public Result updateRole(@RequestBody Role role, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
         //获取当前登录的用户
         CurrentUser currentUser = tokenUtils.getCurrentUser(token);
         //获取当前登录的用户id -- 修改角色的用户id
@@ -135,5 +136,4 @@ public class RoleController {
         //响应
         return roleService.updateRoleDesc(role);
     }
-
 }

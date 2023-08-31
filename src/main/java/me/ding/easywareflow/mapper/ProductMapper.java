@@ -20,4 +20,6 @@ public interface ProductMapper {
     int updateStateById(Product product);
 
     int deleteProductById(Integer productId);
+
+    int updateProductById(Product product);
 }

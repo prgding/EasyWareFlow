@@ -176,17 +176,33 @@ public class ProductController {
      * 修改商品上下架状态的url接口/product/state-change
      */
     @RequestMapping("/state-change")
-    public Result changeProductState(@RequestBody Product product){
+    public Result changeProductState(@RequestBody Product product) {
         return productService.updateProductState(product);
     }
+
     /**
      * 删除商品的url接口/product/product-delete/{productId}
      */
     @RequestMapping("/product-delete/{productId}")
-    public Result deleteProduct(@PathVariable Integer productId){
+    public Result deleteProduct(@PathVariable Integer productId) {
         //响应
         return productService.deleteProduct(productId);
     }
 
+    /**
+     * 修改商品的url接口/product/product-update
+     * 将请求头Token的值即客户端归还的token赋值给参数变量token;
+     */
+    @RequestMapping("/product-update")
+    public Result updateProduct(@RequestBody Product product, @RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String token) {
+        //获取当前登录的用户
+        CurrentUser currentUser = tokenUtils.getCurrentUser(token);
+        //获取当前登录的用户id,即修改商品的用户id
+        int updateBy = currentUser.getUserId();
+        product.setUpdateBy(updateBy);
+
+        //响应
+        return productService.updateProduct(product);
+    }
 
 }

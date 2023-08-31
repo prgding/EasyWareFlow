@@ -12,4 +12,6 @@ public interface ProductService {
     Result updateProductState(Product product);
 
     Result deleteProduct(Integer productId);
+
+    Result updateProduct(Product product);
 }

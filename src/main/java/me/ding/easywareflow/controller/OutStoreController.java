@@ -1,9 +1,8 @@
 package me.ding.easywareflow.controller;
 
-import me.ding.easywareflow.entity.CurrentUser;
-import me.ding.easywareflow.entity.OutStore;
-import me.ding.easywareflow.entity.Result;
+import me.ding.easywareflow.entity.*;
 import me.ding.easywareflow.service.OutStoreService;
+import me.ding.easywareflow.service.StoreService;
 import me.ding.easywareflow.utils.TokenUtils;
 import me.ding.easywareflow.utils.WarehouseConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,17 +11,18 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RequestMapping("/outstore")
 @RestController
 public class OutStoreController {
 
-    //注入OutStoreService
     @Autowired
     private OutStoreService outStoreService;
-
-    //注入TokenUtils
     @Autowired
     private TokenUtils tokenUtils;
+    @Autowired
+    private StoreService storeService;
 
     /**
      * 添加出库单的url接口/outstore/outstore-add
@@ -39,4 +39,40 @@ public class OutStoreController {
         //响应
         return outStoreService.saveOutStore(outStore);
     }
+
+    /**
+     * 查询所有仓库的url接口/outstore/store-list
+     */
+    @RequestMapping("/store-list")
+    public Result storeList(){
+        //执行业务
+        List<Store> storeList = storeService.queryAllStore();
+        //响应
+        return Result.ok(storeList);
+    }
+
+    /**
+     * 分页查询出库单的url接口/outstore/outstore-page-list
+     * 参数Page对象用于接收请求参数页码pageNum、每页行数pageSize;
+     * 参数OutStore对象用于接收请求参数仓库id storeId、商品名称productName、
+     * 是否出库isOut、起止时间startTime和endTime;
+     * 返回值Result对象向客户端响应组装了所有分页信息的Page对象;
+     */
+    @RequestMapping("/outstore-page-list")
+    public Result outStorePageList(Page page, OutStore outStore){
+        //执行业务
+        page = outStoreService.outStorePage(page, outStore);
+        //响应
+        return Result.ok(page);
+    }
+
+    /**
+     * 确定出库的url接口/outstore/outstore-confirm
+     */
+    @RequestMapping("/outstore-confirm")
+    public Result confirmOutStore(@RequestBody OutStore outStore){
+        //执行业务
+        return outStoreService.confirmOutStore(outStore);
+    }
+
 }

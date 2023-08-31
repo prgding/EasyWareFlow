@@ -24,4 +24,6 @@ public interface ProductMapper {
     int updateProductById(Product product);
 
     int addInventById(Integer productId, Integer inNum);
+
+    Product selectProductById(Integer productId);
 }

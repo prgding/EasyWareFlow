@@ -133,4 +133,11 @@
         where product_id = #{param1}
     </update>
 
+    <!-- Product selectProductById(Integer productId)-->
+    <select id="selectProductById" resultType="Product">
+        select *
+        from product
+        where product_id = #{productId}
+    </select>
+
 </mapper>

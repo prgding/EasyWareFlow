@@ -26,4 +26,11 @@ public class Purchase {
     private String buyUser;//采购人
     private String phone;//采购人联系电话
     private String isIn;//是否生成入库单,1.是,0.否
+
+    //---------------追加属性---------------------------
+    private String productName;//商品名称
+    private String storeName;//仓库名称
+    private String startTime;//搜索起始时间
+    private String endTime;//搜索结束时间
+
 }

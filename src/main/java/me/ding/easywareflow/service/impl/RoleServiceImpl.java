@@ -96,7 +96,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     //删除角色的业务方法
-    @Transactional//事务处理
+    @Transactional
     @Override
     public void deleteRole(Integer roleId) {
         //根据角色id删除角色

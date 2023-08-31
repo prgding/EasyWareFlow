@@ -46,7 +46,7 @@ public class SecurityFilter implements Filter {
         urlList.add("/captcha/captchaImage");
         urlList.add("/login");
         urlList.add("/logout");
-        if (urlList.contains(path)) {
+        if (urlList.contains(path) || path.contains("/img/upload")) {
             chain.doFilter(request, response);
             System.out.println("白名单请求, 放行");
             return;

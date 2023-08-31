@@ -54,7 +54,7 @@ public class TokenUtils {
         //生成token
         String token = sign(currentUser, password);
         //将token保存到redis中,并设置token在redis中的过期时间
-        stringRedisTemplate.opsForValue().set(token, token, expireTime * 2L, TimeUnit.SECONDS);
+        stringRedisTemplate.opsForValue().set(token, token, expireTime * 2L, TimeUnit.HOURS);
         return token;
     }
 

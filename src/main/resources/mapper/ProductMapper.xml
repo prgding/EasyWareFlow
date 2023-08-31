@@ -126,5 +126,11 @@
         where product_id = #{productId}
     </update>
 
+    <!-- int addInventById(Integer productId, Integer invent)-->
+    <update id="addInventById">
+        update product
+        set product_invent = product_invent + #{param2}
+        where product_id = #{param1}
+    </update>
 
 </mapper>

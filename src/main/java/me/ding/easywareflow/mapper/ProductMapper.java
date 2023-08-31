@@ -22,4 +22,6 @@ public interface ProductMapper {
     int deleteProductById(Integer productId);
 
     int updateProductById(Product product);
+
+    int addInventById(Integer productId, Integer inNum);
 }

@@ -1,13 +1,17 @@
 package me.ding.easywareflow.service.impl;
 
 import me.ding.easywareflow.entity.InStore;
+import me.ding.easywareflow.entity.Page;
 import me.ding.easywareflow.entity.Result;
 import me.ding.easywareflow.mapper.InStoreMapper;
+import me.ding.easywareflow.mapper.ProductMapper;
 import me.ding.easywareflow.mapper.PurchaseMapper;
 import me.ding.easywareflow.service.InStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class InStoreServiceImpl implements InStoreService {
@@ -16,6 +20,8 @@ public class InStoreServiceImpl implements InStoreService {
     private InStoreMapper inStoreMapper;
     @Autowired
     private PurchaseMapper purchaseMapper;
+    @Autowired
+    private ProductMapper productMapper;
 
     //添加入库单的业务方法
     @Transactional//事务处理
@@ -31,4 +37,35 @@ public class InStoreServiceImpl implements InStoreService {
         }
         return Result.err(Result.CODE_ERR_BUSINESS, "入库单添加失败！");
     }
+
+    //分页查询入库单的业务方法
+    @Override
+    public Page queryInStorePage(Page page, InStore inStore) {
+        //查询入库单总行数
+        int inStoreCount = inStoreMapper.selectInStoreCount(inStore);
+        //分页查询入库单
+        List<InStore> inStoreList = inStoreMapper.selectInStorePage(page, inStore);
+        //将查询到的总行数和当前页数据封装到Page对象
+        page.setTotalNum(inStoreCount);
+        page.setResultList(inStoreList);
+
+        return page;
+    }
+
+    //确定入库的业务方法
+    @Transactional//事务处理
+    @Override
+    public Result confirmInStore(InStore inStore) {
+        //根据id将入库单状态改为已入库
+        int i = inStoreMapper.updateIsInById(inStore.getInsId());
+        if (i > 0) {
+            //根据商品id增加商品库存
+            int j = productMapper.addInventById(inStore.getProductId(), inStore.getInNum());
+            if (j > 0) return Result.ok("入库成功！");
+            return Result.err(Result.CODE_ERR_BUSINESS, "入库失败！");
+        }
+        return Result.err(Result.CODE_ERR_BUSINESS, "入库失败！");
+    }
+
+
 }

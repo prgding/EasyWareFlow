@@ -39,6 +39,7 @@ public class SecurityFilter implements Filter {
 
         //获取请求url接口
         String path = request.getServletPath();
+        System.out.println("path = " + path);
         /*
           白名单请求都直接放行:
          */
@@ -49,7 +50,7 @@ public class SecurityFilter implements Filter {
         //对上传图片的url接口/product/img-upload的请求直接放行
         urlList.add("/product/img-upload");
         //对static下的/img/upload中的静态资源图片的访问直接放行
-        if (urlList.contains(path) || path.contains("/img/upload")) {
+        if (urlList.contains(path) || path.contains("/img/upload") || path.contains("/swagger-ui") || path.contains("/v3")) {
             chain.doFilter(request, response);
             System.out.println("白名单请求, 放行");
             return;
@@ -60,7 +61,7 @@ public class SecurityFilter implements Filter {
          */
         //拿到前端归还的token
         String clientToken = request.getHeader(WarehouseConstants.HEADER_TOKEN_NAME);
-        System.out.println("clientToken = " + clientToken);
+        System.out.println("Token = " + clientToken);
         //token校验通过,请求放行
         if (StringUtils.hasText(clientToken) && Boolean.TRUE.equals(redisTemplate.hasKey(clientToken))) {
             chain.doFilter(request, response);

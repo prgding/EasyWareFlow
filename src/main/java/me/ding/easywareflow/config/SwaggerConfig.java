@@ -1,6 +1,5 @@
 package me.ding.easywareflow.config;
 
-import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
@@ -20,11 +19,8 @@ public class SwaggerConfig {
                 .version("v1.0")
                 .license(new License()
                         .name("MIT")
-                        .url("https://github.com/prgding/EasyWareFlow")
+                        .url("https://github.com/prgding/EasyWareFlow/blob/main/LICENSE")
                 )
-        ).externalDocs(new ExternalDocumentation()
-                .description("GitHub 仓库")
-                .url("https://springshop.wiki.github.org/docs")
         );
     }
 }

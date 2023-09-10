@@ -1,7 +1,7 @@
 package me.ding.easywareflow.controller;
 
 import com.google.code.kaptcha.Producer;
-import jakarta.annotation.Resource;
+import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -10,20 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
-
-import jakarta.servlet.ServletOutputStream;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 @RequestMapping("/captcha")
 @RestController
 public class VerificationCodeController {
-    //注入id引用名为captchaProducer的Producer接口的实现类DefaultKaptcha的bean对象
-    @Resource(name = "captchaProducer")
+    @Autowired
     private Producer captchaProducer;
-
-    //注入redis模板
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
@@ -32,13 +26,11 @@ public class VerificationCodeController {
      */
     @GetMapping("/captchaImage")
     public void getKaptchaImage(HttpServletResponse response) {
-
         ServletOutputStream out = null;
         try {
             //禁止浏览器缓存验证码图片的响应头
             response.setDateHeader("Expires", 0);
-            response.setHeader("Cache-Control",
-                    "no-store, no-cache, must-revalidate");
+            response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
             response.addHeader("Cache-Control", "post-check=0, pre-check=0");
             response.setHeader("Pragma", "no-cache");
 

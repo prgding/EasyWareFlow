@@ -30,6 +30,12 @@ public class LoginController {
     /**
      * 登录的url接口/login
      */
+
+    @GetMapping("/")
+    public String hello() {
+        return "Hello, this is easywareflow, 测试接口通过";
+    }
+
     @PostMapping("/login")
     public Result login(@RequestBody LoginUser loginUser) {
 

@@ -87,7 +87,8 @@ public class UserController {
     }
 
     /**
-     * 查询用户已分配的角色的url接口/user/user-role-list/{userId}
+     * 查询用户已分配的角色的接口
+     * /user/user-role-list/{userId}
      */
     @RequestMapping("/user-role-list/{userId}")
     public Result userRoleList(@PathVariable Integer userId) {
@@ -143,5 +144,4 @@ public class UserController {
         //响应
         return userService.resetPwd(userId);
     }
-
 }

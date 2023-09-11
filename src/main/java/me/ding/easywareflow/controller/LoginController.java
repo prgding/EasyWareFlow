@@ -91,6 +91,6 @@ public class LoginController {
     public Result logout(@RequestHeader(WarehouseConstants.HEADER_TOKEN_NAME) String clientToken) {
         //从 redis 移除 token
         stringRedisTemplate.delete(clientToken);
-        return Result.ok();
+        return Result.ok("用户退出成功");
     }
 }

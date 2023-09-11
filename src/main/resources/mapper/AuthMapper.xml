@@ -3,6 +3,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="me.ding.easywareflow.mapper.AuthMapper">
+    <update id="updateNameById">
+        update auth_info
+        set auth_name  = #{authName},
+            auth_grade = #{authGrade},
+            auth_type = #{authGrade}
+        where auth_id = #{authId}
+    </update>
+    <update id="updateAuthState">
+        update auth_info
+        set auth_state = #{authState}
+        where auth_id = #{authId}
+    </update>
     <!--
         // 根据用户id查询用户所有权限(菜单)的方法
         List<Auth> findAllAuth(int userId)
@@ -38,5 +50,18 @@
         insert into role_auth (role_id, auth_id)
         values (#{param1}, #{param2})
     </insert>
+
+    <insert id="insertAuth">
+        insert into auth_info (parent_id, auth_name, auth_grade,
+                               auth_type, auth_order, create_by,
+                               create_time)
+        values (#{parentId}, #{authName}, #{authGrade}, #{authGrade}, 0, #{createBy}, #{createTime})
+    </insert>
+
+    <select id="findByName" resultType="Auth">
+        select *
+        from auth_info
+        where auth_name = #{authName}
+    </select>
 
 </mapper>

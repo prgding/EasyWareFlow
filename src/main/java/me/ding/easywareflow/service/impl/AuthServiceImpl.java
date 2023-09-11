@@ -3,6 +3,7 @@ package me.ding.easywareflow.service.impl;
 import com.alibaba.fastjson2.JSON;
 import me.ding.easywareflow.dto.AssignAuthDto;
 import me.ding.easywareflow.entity.Auth;
+import me.ding.easywareflow.entity.Result;
 import me.ding.easywareflow.mapper.AuthMapper;
 import me.ding.easywareflow.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +71,7 @@ public class AuthServiceImpl implements AuthService {
     public List<Auth> allAuthTree() {
         //先从redis中查询缓存,查到的是整个权限(菜单)树List<Auth>转的json串
         String allAuthTreeJson = redisTemplate.opsForValue().get("all:authTree");
-        if(StringUtils.hasText(allAuthTreeJson)){//redis中查到缓存
+        if (StringUtils.hasText(allAuthTreeJson)) {//redis中查到缓存
             //将json串转回整个权限(菜单)树List<Auth>并返回
             return JSON.parseArray(allAuthTreeJson, Auth.class);
         }
@@ -85,7 +86,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     //给角色分配权限(菜单)的业务方法
-    @Transactional//事务处理
+    @Transactional
     @Override
     public void assignAuth(AssignAuthDto assignAuthDto) {
 
@@ -103,5 +104,26 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
+    @Override
+    public Result saveAuth(Auth auth) {
+        Auth byName = authMapper.findByName(auth.getAuthName());
+        if (byName != null) {
+            return Result.err(Result.CODE_ERR_BUSINESS, "权限已存在");
+        }
+        authMapper.insertAuth(auth);
+        return Result.ok("添加权限成功");
+    }
 
+    @Override
+    public Result updateAuthName(Auth auth) {
+        authMapper.updateNameById(auth);
+        return Result.ok("更改权限成功");
+    }
+
+    @Override
+    public Result updateState(Auth auth) {
+        int i = authMapper.updateAuthState(auth);
+        if (i > 0) return Result.ok("更新状态成功");
+        return Result.err(Result.CODE_ERR_BUSINESS, "更新状态失败");
+    }
 }

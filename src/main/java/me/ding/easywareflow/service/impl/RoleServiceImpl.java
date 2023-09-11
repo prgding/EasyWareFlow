@@ -66,7 +66,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Result saveRole(Role role) {
 
-        //根据角色名或角色代码查询角色
+        // 根据角色名或角色代码查询角色
         Role oldRole = roleMapper.findRoleByNameOrCode(role.getRoleName(), role.getRoleCode());
         if (oldRole != null) {
             //角色已存在
@@ -83,9 +83,9 @@ public class RoleServiceImpl implements RoleService {
         //根据角色id修改角色状态
         int i = roleMapper.updateRoleState(role);
         if (i > 0) {
-            return Result.ok("修改成功！");
+            return Result.ok("修改状态成功！");
         }
-        return Result.err(Result.CODE_ERR_BUSINESS, "修改失败！");
+        return Result.err(Result.CODE_ERR_BUSINESS, "修改状态失败！");
     }
 
     //查询角色已分配的权限(菜单)的业务方法

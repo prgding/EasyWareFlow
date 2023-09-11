@@ -23,4 +23,8 @@ public interface AuthMapper {
     void updateNameById(Auth auth);
 
     int updateAuthState(Auth auth);
+
+    int deleteAuthById(Integer authId);
+
+    void deleteAuthFromRole(Integer authId);
 }

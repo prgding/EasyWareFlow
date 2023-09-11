@@ -126,4 +126,14 @@ public class AuthServiceImpl implements AuthService {
         if (i > 0) return Result.ok("更新状态成功");
         return Result.err(Result.CODE_ERR_BUSINESS, "更新状态失败");
     }
+
+    @Override
+    public void deleteAuth(Integer authId) {
+        // 删除权限
+        int i = authMapper.deleteAuthById(authId);
+        if (i > 0) {
+            // 收回分配过的权限
+            authMapper.deleteAuthFromRole(authId);
+        }
+    }
 }

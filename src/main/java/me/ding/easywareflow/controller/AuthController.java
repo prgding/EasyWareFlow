@@ -7,10 +7,7 @@ import me.ding.easywareflow.service.AuthService;
 import me.ding.easywareflow.utils.TokenUtils;
 import me.ding.easywareflow.utils.WarehouseConstants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -64,5 +61,11 @@ public class AuthController {
         return authService.updateState(auth);
     }
 
-
+    @RequestMapping("/auth-delete/{authId}")
+    public Result deleteRole(@PathVariable Integer authId) {
+        //执行业务
+        authService.deleteAuth(authId);
+        //响应
+        return Result.ok("权限删除成功！");
+    }
 }

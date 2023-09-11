@@ -19,4 +19,6 @@ public interface AuthService {
     Result updateAuthName(Auth auth);
 
     Result updateState(Auth auth);
+
+    void deleteAuth(Integer authId);
 }

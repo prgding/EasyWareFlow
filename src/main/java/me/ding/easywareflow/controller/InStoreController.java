@@ -3,15 +3,12 @@ package me.ding.easywareflow.controller;
 import me.ding.easywareflow.entity.InStore;
 import me.ding.easywareflow.entity.Page;
 import me.ding.easywareflow.entity.Result;
-import me.ding.easywareflow.entity.Store;
 import me.ding.easywareflow.service.InStoreService;
 import me.ding.easywareflow.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RequestMapping("/instore")
 @RestController
@@ -20,17 +17,6 @@ public class InStoreController {
     //注入StoreService
     @Autowired
     private StoreService storeService;
-
-    /**
-     * 查询所有仓库的url接口/instore/store-list
-     */
-    @RequestMapping("/store-list")
-    public Result storeList() {
-        //执行业务
-        List<Store> storeList = storeService.queryAllStore();
-        //响应
-        return Result.ok(storeList);
-    }
 
     @Autowired
     private InStoreService inStoreService;

@@ -44,6 +44,15 @@
         from role_auth
         where role_id = #{roleId}
     </delete>
+    <delete id="deleteAuthById">
+        delete from auth_info
+        where auth_id = #{param1}
+    </delete>
+
+    <delete id="deleteAuthFromRole">
+        delete from role_auth
+        where auth_id = #{param1}
+    </delete>
 
     <!-- void insertRoleAuth(Integer roleId, Integer authId); -->
     <insert id="insertRoleAuth">

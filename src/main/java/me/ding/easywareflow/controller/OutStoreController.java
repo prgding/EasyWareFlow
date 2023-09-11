@@ -1,6 +1,9 @@
 package me.ding.easywareflow.controller;
 
-import me.ding.easywareflow.entity.*;
+import me.ding.easywareflow.entity.CurrentUser;
+import me.ding.easywareflow.entity.OutStore;
+import me.ding.easywareflow.entity.Page;
+import me.ding.easywareflow.entity.Result;
 import me.ding.easywareflow.service.OutStoreService;
 import me.ding.easywareflow.service.StoreService;
 import me.ding.easywareflow.utils.TokenUtils;
@@ -10,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RequestMapping("/outstore")
 @RestController
@@ -38,17 +39,6 @@ public class OutStoreController {
         outStore.setCreateBy(createBy);
         //响应
         return outStoreService.saveOutStore(outStore);
-    }
-
-    /**
-     * 查询所有仓库的url接口/outstore/store-list
-     */
-    @RequestMapping("/store-list")
-    public Result storeList(){
-        //执行业务
-        List<Store> storeList = storeService.queryAllStore();
-        //响应
-        return Result.ok(storeList);
     }
 
     /**

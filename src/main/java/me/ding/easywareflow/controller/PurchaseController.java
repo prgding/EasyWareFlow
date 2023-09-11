@@ -9,8 +9,6 @@ import me.ding.easywareflow.utils.WarehouseConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RequestMapping("/purchase")
 @RestController
 public class PurchaseController {
@@ -29,16 +27,6 @@ public class PurchaseController {
         return purchaseService.savePurchase(purchase);
     }
 
-    /**
-     * 查询所有仓库的url接口/purchase/store-list
-     */
-    @RequestMapping("/store-list")
-    public Result storeList() {
-        //执行业务
-        List<Store> storeList = storeService.queryAllStore();
-        //响应
-        return Result.ok(storeList);
-    }
 
     /**
      * 分页查询采购单的url接口/purchase/purchase-page-list

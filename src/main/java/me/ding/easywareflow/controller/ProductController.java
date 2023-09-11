@@ -30,8 +30,6 @@ public class ProductController {
     @Autowired
     private PlaceService placeService;
     @Autowired
-    private UnitService unitService;
-    @Autowired
     private ProductService productService;
     /**
      * 将配置文件的file.upload-path属性值注入给控制器的uploadPath属性,
@@ -103,18 +101,6 @@ public class ProductController {
     }
 
     /**
-     * 查询所有单位的url接口/product/unit-list
-     * 返回值Result对象给客户端响应查询到的List<Unit>;
-     */
-    @RequestMapping("/unit-list")
-    public Result unitList() {
-        //执行业务
-        List<Unit> unitList = unitService.queryAllUnit();
-        //响应
-        return Result.ok(unitList);
-    }
-
-    /**
      * 分页查询商品的url接口/product/product-page-list
      * 参数Page对象用于接收请求参数页码pageNum、每页行数pageSize;
      * 参数Product对象用于接收请求参数仓库id storeId、商品名称productName、
@@ -135,7 +121,7 @@ public class ProductController {
      * 参数MultipartFile file对象封装了上传的图片;
      */
     @CrossOrigin
-    @PostMapping("/img-upload")
+    @RequestMapping("/img-upload")
     public Result uploadImg(MultipartFile file) {
         try {
             //拿到图片上传到的目录(类路径classes下的static/img/upload)的File对象

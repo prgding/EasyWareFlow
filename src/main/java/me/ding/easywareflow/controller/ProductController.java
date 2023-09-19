@@ -22,13 +22,7 @@ public class ProductController {
     @Autowired
     private StoreService storeService;
     @Autowired
-    private BrandService brandService;
-    @Autowired
     private ProductTypeService productTypeService;
-    @Autowired
-    private SupplyService supplyService;
-    @Autowired
-    private PlaceService placeService;
     @Autowired
     private ProductService productService;
     /**
@@ -52,17 +46,7 @@ public class ProductController {
         return Result.ok(storeList);
     }
 
-    /**
-     * 查询所有品牌的url接口/product/brand-list
-     * 返回值Result对象给客户端响应查询到的List<Brand>;
-     */
-    @RequestMapping("/brand-list")
-    public Result brandList() {
-        //执行业务
-        List<Brand> brandList = brandService.queryAllBrand();
-        //响应
-        return Result.ok(brandList);
-    }
+
 
     /**
      * 查询所有商品分类树的url接口/product/category-tree
@@ -76,29 +60,7 @@ public class ProductController {
         return Result.ok(typeTreeList);
     }
 
-    /**
-     * 查询所有供应商的url接口/product/supply-list
-     * 返回值Result对象给客户端响应查询到的List<Supply>;
-     */
-    @RequestMapping("/supply-list")
-    public Result supplyList() {
-        //执行业务
-        List<Supply> supplyList = supplyService.queryAllSupply();
-        //响应
-        return Result.ok(supplyList);
-    }
 
-    /**
-     * 查询所有产地的url接口/product/place-list
-     * 返回值Result对象给客户端响应查询到的List<Place>;
-     */
-    @RequestMapping("/place-list")
-    public Result placeList() {
-        //执行业务
-        List<Place> placeList = placeService.queryAllPlace();
-        //响应
-        return Result.ok(placeList);
-    }
 
     /**
      * 分页查询商品的url接口/product/product-page-list

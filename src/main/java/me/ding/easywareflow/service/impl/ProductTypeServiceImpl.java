@@ -63,7 +63,6 @@ public class ProductTypeServiceImpl implements ProductTypeService {
 
     /*
       添加商品分类的业务方法
-
       @CacheEvict(key = "'all:typeTree'")清除所有商品分类树的缓存;
      */
     @CacheEvict(key = "'all:typeTree'")
